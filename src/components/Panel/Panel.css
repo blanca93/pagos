@@ -1,0 +1,88 @@
+:root {
+  --table-border: #d9d9d9;
+  --table-header-border: #c8117f;
+  --table-header-background: #c8117f;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+.table-container {
+  display: block;
+  margin: 2em auto;
+  width: 90%;
+  max-width: 900px;
+}
+
+.flex-table {
+  display: flex;
+  flex-flow: row wrap;
+  border-left: solid 1px var(--table-border);
+  transition: 0.5s;
+}
+
+.flex-table:first-of-type {
+  border-top: solid 1px var(--table-header-border);
+  border-left: solid 1px var(--table-header-border);
+  background-color: var(--table-header-background);
+}
+
+.flex-table:first-of-type .flex-row {
+  background: var(--table-header);
+  color: white;
+  border-color: var(--table-header-border);
+  background-color: var(--table-header-background);
+}
+
+.flex-row {
+  width: calc(100% / 4);
+  text-align: center;
+  padding: 0.5em 0.5em;
+  border-right: solid 1px var(--table-border);
+  border-bottom: solid 1px var(--table-border);
+}
+
+.flex-cell {
+  width: calc(100% / 4);
+  text-align: center;
+  padding: 0.5em 0.5em;
+  border-right: solid 1px var(--table-border);
+}
+
+@media all and (max-width: 767px) {
+  .flex-row {
+    width: calc(100% / 4); 
+  }
+  .flex-row.first {
+    width: 100%;
+  }
+}
+
+@media all and (max-width: 430px) {
+  
+  .flex-table .flex-row {
+    border-bottom: 0;
+  }
+
+  .flex-table .flex-row:last-of-type {
+    border-bottom: solid 1px var(--table-border);
+  }
+  
+  .header .flex-row {
+    border-bottom: solid 1px;
+  }
+  
+  .flex-row {
+    width: 100%;
+  }
+
+  .flex-row:first {
+    width: 100%;
+    border-bottom: solid 1px var(--table-border);
+  }
+
+  .flex-cell {
+    width: 100%; 
+  }
+}
