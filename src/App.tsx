@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
-import { PagoState } from './components/Pago/interfaces/PagoState';
-import Pago from './components/Pago/Pago';
+import PagoForm from './components/PagoForm/PagoForm';
 import Panel from './components/Panel/Panel';
+import { Pago } from './types';
 
 
 const INITIAL_STATE = [
@@ -32,20 +32,36 @@ const INITIAL_STATE = [
   }
 ];
 
+interface PagoState {
+  pagos: Array<Pago>;
+  newPago: Pago;
+}
+
 
 function App() {
-  const [pagos, setPagos] = useState<PagoState['pagos']>();
-  const [newPagos, setNewPagos] = useState<PagoState['newPagos']>();
+  const [pagos, setPagos] = useState<PagoState['pagos']>([]);
+  const [newPago, setNewPago] = useState<PagoState['newPago']>({
+    id: 0,
+    personaId: 0,
+    personaName: '',
+    importe: 0,
+    fecha: undefined
+  });
+  const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setPagos(INITIAL_STATE)
   }, [])
 
+  const handleNewPago = (newPago: Pago): void => {
+    setPagos(pagos => [...pagos, newPago])
+  }
+
   return (
-    <div className="App">
+    <div className="App" ref={divRef}>
       <body className="App-body">
-         <Panel pagos={pagos!}/>
-         <Pago />
+         <Panel pagos={pagos}/>
+         <PagoForm onNewPago={handleNewPago}/>
       </body>
     </div>
   );

@@ -1,13 +1,16 @@
-import './Persona.css';
+import './PersonaForm.css';
+import { Persona } from '../../types';
 
 interface Props {
-    personas: Array<{
-        id: number;
-        name: string;
-    }>
+    personas: Array<Persona>
 }
 
-export default function Persona ({personas}: Props) {
+interface PersonaState {
+    personas: Array<Persona>;
+    newPersonas: Array<Persona>;
+}
+
+export default function PersonaForm ({personas}: Props) {
 
   return (
     <div className="table-container" role="table" aria-label="Personas">

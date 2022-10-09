@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
-import { PagoInterface } from './interfaces/PagoInterface';
-import './Pago.css';
+import React, { SetStateAction, useState } from 'react';
+import { Pago } from '../../types';
+import './PagoForm.css';
 
-const Pago = () => {
-    const [inputValues, setInputValues] = useState<PagoInterface>({
+interface PagoFormState {
+    inputValues: Pago
+}
+
+interface PagoFormProps {
+    onNewPago: (newPago: Pago) => void
+}
+
+const PagoForm = ({onNewPago}: PagoFormProps) => {
+    const [inputValues, setInputValues] = useState<PagoFormState['inputValues']>({
         id: 0,
         personaId: 0,
         personaName: '',
@@ -12,7 +20,10 @@ const Pago = () => {
         descripcion: ''
     });
  
-    const handleSubmit = () => {};
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        onNewPago(inputValues);
+    };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setInputValues({
@@ -46,6 +57,9 @@ const Pago = () => {
                         <textarea onChange={handleChange} value={inputValues.descripcion} name='descripcion' placeholder='Entradas'/>
                     </li>
                     <li>
+                        <button type='button'>Limpiar</button>
+                    </li>
+                    <li>
                         <button type='submit'>Guardar</button>
                     </li>                    
                 </ul>
@@ -54,4 +68,4 @@ const Pago = () => {
     )
 }
 
-export default Pago;
+export default PagoForm;

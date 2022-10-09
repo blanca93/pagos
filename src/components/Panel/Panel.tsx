@@ -1,8 +1,8 @@
-import { PagoInterface } from '../Pago/interfaces/PagoInterface';
+import { Pago } from './../../types';
 import './Panel.css';
 
 interface Props {
-    pagos: Array<PagoInterface>
+    pagos: Array<Pago>
 }
 
 export default function Panel ({pagos}: Props) {
