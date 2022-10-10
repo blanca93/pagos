@@ -56,12 +56,25 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="App-body">
-         <Panel pagos={pagos}/>
-         <PagoForm onNewPago={handleNewPago}/>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <header className="App-body">
+            <ul>
+              <li>
+                <Link to="/">Tabla de pagos</Link>
+              </li>
+              <li>
+                <Link to="/pago">Añadir un pago</Link>
+              </li>
+            </ul>
+            <Routes>
+              <Route path="/" element={<Panel pagos={pagos}/>} />
+              <Route path="/pago" element={<PagoForm onNewPago={handleNewPago}/>} />              
+            </Routes>        
+        </header>
+      </div>
+    </Router>
+    
   );
 }
 

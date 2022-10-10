@@ -13,3 +13,9 @@
   color: white;
   letter-spacing: .09em;
 }
+
+a {
+  color: white;
+  cursor: pointer;
+  text-decoration: underline;
+}

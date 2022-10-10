@@ -94,7 +94,7 @@ const PagoForm = ({onNewPago}: PagoFormProps) => {
                         <textarea onChange={handleChange} value={inputValues.descripcion} name='descripcion' placeholder='Entradas'/>
                     </li>
                     <li>
-                        <button type='submit'>Guardar</button>
+                        <button type='submit'>Guardar pago</button>
                     </li>                    
                 </ul>
             </form>
