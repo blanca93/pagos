@@ -55,7 +55,11 @@ const PagoForm = ({onNewPago}: PagoFormProps) => {
  
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        onNewPago(inputValues);
+        if (inputValues.personaName === "" || inputValues.fecha === '' || inputValues.importe === 0) {
+            alert("Los campos persona, fecha e importe son obligatorios");
+        } else {
+            onNewPago(inputValues);
+        }         
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

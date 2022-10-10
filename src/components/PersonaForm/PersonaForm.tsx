@@ -19,7 +19,12 @@ export default function PersonaForm ({onNewPersona}: Props) {
  
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        onNewPersona(inputValues);
+        if (inputValues.name === "") {
+            alert("Debe introducir un nombre de persona");
+        } else {
+            onNewPersona(inputValues);
+            alert("Los datos se han guardado correctamente");
+        }        
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
