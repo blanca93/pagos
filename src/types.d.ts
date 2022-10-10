@@ -4,7 +4,7 @@ export interface Pago {
     personaName: string;
     importe: number;
     descripcion?: string;
-    fecha: Date | undefined;
+    fecha: string;
 }
 
 export interface Persona {

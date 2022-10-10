@@ -39,7 +39,8 @@
 }
 
 .flex-outer li input,
-.flex-outer li textarea {
+.flex-outer li textarea,
+.flex-outer li select {
   padding: 15px;
   border: none;
 }

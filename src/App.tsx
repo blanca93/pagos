@@ -1,8 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import PagoForm from './components/PagoForm/PagoForm';
 import Panel from './components/Panel/Panel';
-import { Pago } from './types';
+import PersonaForm from './components/PersonaForm/PersonaForm';
+import { Pago, Persona } from './types';
+
 
 
 const INITIAL_STATE = [
@@ -11,7 +13,7 @@ const INITIAL_STATE = [
     personaId: 0,
     personaName: 'Francisco Buyo',
     importe: 100,
-    fecha: new Date(),
+    fecha: '2022-09-29T22:33:00',
     descripcion: 'Cena'
   },
   {
@@ -19,7 +21,7 @@ const INITIAL_STATE = [
     personaId: 1,
     personaName: 'Alfonso Pérez',
     importe: 10,
-    fecha: new Date(),
+    fecha: '2022-09-29T22:59:00',
     descripcion: 'Taxi'
   },
   {
@@ -27,38 +29,33 @@ const INITIAL_STATE = [
     personaId: 1,
     personaName: 'Alfonso Pérez',
     importe: 53.40,
-    fecha: new Date(),
+    fecha: '2022-09-29T18:33:00',
     descripcion: 'Compra'
   }
 ];
 
+
 interface PagoState {
   pagos: Array<Pago>;
-  newPago: Pago;
 }
+
+let pagoId = 3;
 
 
 function App() {
   const [pagos, setPagos] = useState<PagoState['pagos']>([]);
-  const [newPago, setNewPago] = useState<PagoState['newPago']>({
-    id: 0,
-    personaId: 0,
-    personaName: '',
-    importe: 0,
-    fecha: undefined
-  });
-  const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setPagos(INITIAL_STATE)
+    setPagos(INITIAL_STATE);
   }, [])
 
   const handleNewPago = (newPago: Pago): void => {
+    newPago.id = pagoId++;
     setPagos(pagos => [...pagos, newPago])
   }
 
   return (
-    <div className="App" ref={divRef}>
+    <div className="App">
       <body className="App-body">
          <Panel pagos={pagos}/>
          <PagoForm onNewPago={handleNewPago}/>

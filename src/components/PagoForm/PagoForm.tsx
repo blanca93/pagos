@@ -1,6 +1,28 @@
-import React, { SetStateAction, useState } from 'react';
-import { Pago } from '../../types';
+import React, { useEffect, useState } from 'react';
+import { Pago, Persona } from '../../types';
+import PersonaForm from '../PersonaForm/PersonaForm';
 import './PagoForm.css';
+
+const INITIAL_STATE_PERSONAS = [
+    {
+      id: 0,
+      name: 'Francisco Buyo'
+    },
+    {
+      id: 1,
+      name: 'Alfonso Pérez'
+    },
+    {
+      id: 2,
+      name: 'Raúl González'
+    }
+  ];
+
+  interface PersonaState {
+    personas: Array<Persona>;
+  }
+
+  let personaId = 3;  
 
 interface PagoFormState {
     inputValues: Pago
@@ -11,12 +33,23 @@ interface PagoFormProps {
 }
 
 const PagoForm = ({onNewPago}: PagoFormProps) => {
+    const [personas, setPersonas] = useState<PersonaState['personas']>([]);
+
+    useEffect(() => {
+        setPersonas(INITIAL_STATE_PERSONAS);
+    }, [])
+
+    const handleNewPersona = (newPersona: Persona): void => {
+    newPersona.id = personaId++;
+    setPersonas(personas => [...personas, newPersona])
+    }
+
     const [inputValues, setInputValues] = useState<PagoFormState['inputValues']>({
         id: 0,
         personaId: 0,
         personaName: '',
         importe: 0,
-        fecha: new Date(Date.now()),
+        fecha: '',
         descripcion: ''
     });
  
@@ -25,7 +58,7 @@ const PagoForm = ({onNewPago}: PagoFormProps) => {
         onNewPago(inputValues);
     };
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setInputValues({
             ...inputValues,
             [event.target.name]: event.target.value
@@ -34,12 +67,16 @@ const PagoForm = ({onNewPago}: PagoFormProps) => {
 
     return (
         <div className="container">
+            <PersonaForm onNewPersona={handleNewPersona}/>
             <form onSubmit={handleSubmit}>
                 <ul className="flex-outer">
-                // TODO: meter aquí un dropdown para elegir persona
                     <li>
                         <label htmlFor="personaName">Persona:</label>
-                        <input onChange={handleChange} value={inputValues.personaName} type='text' name='personaName' placeholder='Ana'/>
+                        <select onChange={handleChange} value={inputValues.personaName} name='personaName'>
+                        {
+                            personas.map(el => <option value={el.name} key={el.id}> {el.name} </option>)
+                        }
+                        </select>
                     </li>
 
                     <li>
@@ -49,15 +86,12 @@ const PagoForm = ({onNewPago}: PagoFormProps) => {
 
                     <li>
                         <label htmlFor="fecha">Fecha y hora:</label>
-                        <input onChange={handleChange} value={inputValues.fecha?.toDateString()} type="datetime-local" name='fecha'/>
+                        <input onChange={handleChange} value={inputValues.fecha} type="datetime-local" name='fecha'/>
                     </li>
 
                     <li>
                         <label htmlFor="descripcion">Descripción:</label>
                         <textarea onChange={handleChange} value={inputValues.descripcion} name='descripcion' placeholder='Entradas'/>
-                    </li>
-                    <li>
-                        <button type='button'>Limpiar</button>
                     </li>
                     <li>
                         <button type='submit'>Guardar</button>

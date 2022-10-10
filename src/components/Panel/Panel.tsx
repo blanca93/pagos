@@ -21,7 +21,7 @@ export default function Panel ({pagos}: Props) {
             <div className="flex-table row" role="rowgroup">
                 <div className="flex-row" role="cell">{pago.personaName}</div>
                 <div className="flex-row" role="cell">{pago.importe}</div>
-                <div className="flex-row" role="cell">{pago.fecha?.toDateString()}</div>
+                <div className="flex-row" role="cell">{pago.fecha}</div>
                 <div className="flex-row" role="cell">{pago.descripcion}</div>
             </div>
             )
