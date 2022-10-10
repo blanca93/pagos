@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import PagoForm from './components/PagoForm/PagoForm';
 import Panel from './components/Panel/Panel';
-import PersonaForm from './components/PersonaForm/PersonaForm';
-import { Pago, Persona } from './types';
+import { Pago } from './types';
 
 
 
@@ -37,20 +36,21 @@ const INITIAL_STATE = [
 
 interface PagoState {
   pagos: Array<Pago>;
+  pagoId: number;
 }
-
-let pagoId = 3;
 
 
 function App() {
   const [pagos, setPagos] = useState<PagoState['pagos']>([]);
+  const [pagoId, setPagoId] = useState<PagoState['pagoId']>(3);
 
   useEffect(() => {
     setPagos(INITIAL_STATE);
   }, [])
 
   const handleNewPago = (newPago: Pago): void => {
-    newPago.id = pagoId++;
+    newPago.id = pagoId;
+    setPagoId(pagoId => pagoId + 1)    
     setPagos(pagos => [...pagos, newPago])
   }
 

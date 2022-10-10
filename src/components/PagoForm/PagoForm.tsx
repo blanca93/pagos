@@ -16,13 +16,12 @@ const INITIAL_STATE_PERSONAS = [
       id: 2,
       name: 'Raúl González'
     }
-  ];
+];
 
-  interface PersonaState {
+interface PersonaState {
     personas: Array<Persona>;
-  }
-
-  let personaId = 3;  
+    personaId: number;
+}
 
 interface PagoFormState {
     inputValues: Pago
@@ -34,16 +33,7 @@ interface PagoFormProps {
 
 const PagoForm = ({onNewPago}: PagoFormProps) => {
     const [personas, setPersonas] = useState<PersonaState['personas']>([]);
-
-    useEffect(() => {
-        setPersonas(INITIAL_STATE_PERSONAS);
-    }, [])
-
-    const handleNewPersona = (newPersona: Persona): void => {
-    newPersona.id = personaId++;
-    setPersonas(personas => [...personas, newPersona])
-    }
-
+    const [personaId, setPersonaId] = useState<PersonaState['personaId']>(3);
     const [inputValues, setInputValues] = useState<PagoFormState['inputValues']>({
         id: 0,
         personaId: 0,
@@ -52,6 +42,16 @@ const PagoForm = ({onNewPago}: PagoFormProps) => {
         fecha: '',
         descripcion: ''
     });
+
+    useEffect(() => {
+        setPersonas(INITIAL_STATE_PERSONAS);
+    }, [])
+
+    const handleNewPersona = (newPersona: Persona): void => {
+    newPersona.id = personaId;
+    setPersonaId(personaId => personaId + 1)
+    setPersonas(personas => [...personas, newPersona])
+    }
  
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
