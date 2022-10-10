@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes , Route, Link } from 'react-router-dom';
 import './App.css';
 import PagoForm from './components/PagoForm/PagoForm';
 import Panel from './components/Panel/Panel';
@@ -56,10 +57,10 @@ function App() {
 
   return (
     <div className="App">
-      <body className="App-body">
+      <header className="App-body">
          <Panel pagos={pagos}/>
          <PagoForm onNewPago={handleNewPago}/>
-      </body>
+      </header>
     </div>
   );
 }

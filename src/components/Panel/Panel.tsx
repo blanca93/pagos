@@ -16,9 +16,9 @@ export default function Panel ({pagos}: Props) {
         <div className="flex-row" role="columnheader">DESCRIPCIÓN</div>
         </div>
         {
-        pagos?.map(pago => {
+        pagos?.map((pago, index) => {
             return (
-            <div className="flex-table row" role="rowgroup">
+            <div key={index} className="flex-table row" role="rowgroup">
                 <div className="flex-row" role="cell">{pago.personaName}</div>
                 <div className="flex-row" role="cell">{pago.importe}</div>
                 <div className="flex-row" role="cell">{pago.fecha}</div>
