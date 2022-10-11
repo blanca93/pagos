@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes , Route, Link } from 'react-router-dom';
 import './App.css';
-import BalanceList from './components/Balance/Balance';
+import BalanceList from './components/BalanceList/BalanceList';
 import PagoForm from './components/PagoForm/PagoForm';
 import Panel from './components/Panel/Panel';
 import { Pago } from './types';

@@ -1,44 +1,20 @@
-import { useState, useEffect } from 'react';
-import { Persona, Pago, Balance, Deuda } from '../../types';
-import './Balance.css';
+import { useState } from 'react';
+import { Balance, Deuda } from '../../types';
 
 interface CurrentState {
-    balances: Array<Balance>;
     deudas: Array<Deuda>;
 }
 
-export default function BalanceList () {
+interface Props {
+    balances: Array<Balance>
+}
 
-    const [balances, setBalances] = useState<CurrentState['balances']>([]);
+export default function DeudaList (props: Props) {
+
     const [deudas, setDeudas] = useState<CurrentState['deudas']>([]);
 
-    const calculateBalances = () => {
-        const storedPagos = localStorage.getItem('pagos');
-        const storedPersonas = localStorage.getItem('personas');
-        let pagos: Array<Pago>;
-        let personas: Array<Persona>;
-        if (storedPagos == null || storedPersonas == null) {
-            alert("Faltan datos en el localStorage")
-        } else {
-            pagos = JSON.parse(storedPagos);
-            personas = JSON.parse(storedPersonas);
-
-            // Balance (esto se debería hacer por id de persona, no por nombre, por si el nombre se repite)
-            const totalDinero = pagos.map(x => x.importe).reduce((sum, y) => sum + y, 0);
-            const debePorPersona = totalDinero / personas.length;
-
-            personas.forEach(z => {
-                const pagosHechosPorZ = pagos.filter(a => a.personaName === z.name);
-                const importeAportado = pagosHechosPorZ.map(b => b.importe).reduce((sum, y) => sum + y, 0);
-                const importe = importeAportado - debePorPersona;
-                const newBalance: Balance = {personaName: z.name, importe: Math.round(importe*100)/100}
-                setBalances(balances => [...balances, newBalance])
-            })
-        }
-    } 
-
     const calculateDeudas = () => {
-        let copiaBalances = [...balances];
+        let copiaBalances = [...props.balances];
         let balancesSinCeros: Array<Balance>;
         let balancePareja: Balance;
         
@@ -62,8 +38,6 @@ export default function BalanceList () {
                     } else {
                         newDeuda = {personaQueRecibe: balancePareja.personaName, personaQueDa: balanceDeImporteMaximo.personaName, importe: importeASaldar}
                     }
-                    console.log(newDeuda)
-                    setDeudas(deudas => [...deudas, newDeuda])
 
                     // Actualizamos la lista
                     const newBalanceDeImporteMaximo: Balance = {personaName: balanceDeImporteMaximo.personaName, importe: balanceDeImporteMaximo.importe - importeASaldar * (Math.sign(balanceDeImporteMaximo.importe))};
@@ -80,32 +54,14 @@ export default function BalanceList () {
                         newDeuda = {personaQueDa: balanceDeImporteMaximo.personaName, importe: balanceDeImporteMaximo.importe}
                     }
                 }
+                setDeudas(deudas => [...deudas, newDeuda]);
             }
             copiaBalances = [...balancesSinCeros];
         } 
     } 
 
-    useEffect(() => {
-        calculateBalances();
-    }, []);
-
     return (
-        <div className="balance-container" role="table" aria-label="Balances">
-            <h2>Balance</h2>
-            <div className="flex-table header" role="rowgroup">
-            <div className="flex-row" role="columnheader">PERSONA</div>
-            <div className="flex-row" role="columnheader">IMPORTE</div>
-            </div>
-            {
-            balances?.map((balance, index) => {
-                return (
-                <div key={index} className="flex-table row" role="rowgroup">
-                    <div className="flex-row" role="cell">{balance.personaName}</div>
-                    <div className="flex-row" role="cell">{balance.importe}</div>
-                </div>
-                )
-            }) 
-            }       
+        <div>
             <h2>Deudas</h2>
             {
                 deudas?.map((deuda, i) => {
