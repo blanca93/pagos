@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Balance, Deuda } from '../../types';
 
 interface CurrentState {
@@ -13,8 +13,8 @@ export default function DeudaList (props: Props) {
 
     const [deudas, setDeudas] = useState<CurrentState['deudas']>([]);
 
-    const calculateDeudas = () => {
-        let copiaBalances = [...props.balances];
+    const calculateDeudas = (balances: Array<Balance>) => {
+        let copiaBalances = [...balances];
         let balancesSinCeros: Array<Balance>;
         let balancePareja: Balance;
         
@@ -40,10 +40,10 @@ export default function DeudaList (props: Props) {
                     }
 
                     // Actualizamos la lista
-                    const newBalanceDeImporteMaximo: Balance = {personaName: balanceDeImporteMaximo.personaName, importe: balanceDeImporteMaximo.importe - importeASaldar * (Math.sign(balanceDeImporteMaximo.importe))};
+                    const newBalanceDeImporteMaximo: Balance = {personaName: balanceDeImporteMaximo.personaName, importe: Math.round((balanceDeImporteMaximo.importe - (importeASaldar * (Math.sign(balanceDeImporteMaximo.importe))))*100)/100};
                     balancesSinCeros.splice(balancesSinCeros.indexOf(balanceDeImporteMaximo), 1, newBalanceDeImporteMaximo);
 
-                    const newBalancePareja: Balance = {personaName: balancePareja.personaName, importe: balancePareja.importe + importeASaldar * (Math.sign(balancePareja.importe))};
+                    const newBalancePareja: Balance = {personaName: balancePareja.personaName, importe: Math.round((balancePareja.importe + (importeASaldar * (Math.sign(balanceDeImporteMaximo.importe))))*100)/100};
                     balancesSinCeros.splice(balancesSinCeros.indexOf(balancePareja), 1, newBalancePareja);
 
                 } else {
@@ -60,6 +60,10 @@ export default function DeudaList (props: Props) {
         } 
     } 
 
+    useEffect(() => {
+        calculateDeudas(props.balances);
+    }, [props.balances])
+
     return (
         <div>
             <h2>Deudas</h2>
@@ -68,8 +72,8 @@ export default function DeudaList (props: Props) {
                     return (
                         <ul>
                             <li key={i}>
-                                Persona que da: {deuda.personaQueDa}
-                                Persona que recibe: {deuda.personaQueRecibe}
+                                Persona que da: {deuda.personaQueDa}<br/>
+                                Persona que recibe: {deuda.personaQueRecibe}<br/>
                                 Importe: {deuda.importe}
                             </li>
                         </ul>
