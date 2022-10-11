@@ -8,7 +8,7 @@ interface Props {
 export default function Panel ({pagos}: Props) {
 
   return (
-    <div className="table-container" role="table" aria-label="Personas">
+    <div className="table-container" role="table" aria-label="Pagos">
         <div className="flex-table header" role="rowgroup">
         <div className="flex-row" role="columnheader">PERSONA</div>
         <div className="flex-row" role="columnheader">IMPORTE</div>
@@ -26,7 +26,7 @@ export default function Panel ({pagos}: Props) {
             </div>
             )
         }) 
-        }                       
-    </div>   
+        }        
+    </div>
   );
 }

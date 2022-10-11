@@ -5,17 +5,22 @@ import './PagoForm.css';
 
 const INITIAL_STATE_PERSONAS = [
     {
-      id: 0,
-      name: 'Francisco Buyo'
+        id: 0,
+        name: 'Francisco Buyo'
     },
     {
-      id: 1,
-      name: 'Alfonso Pérez'
+        id: 1,
+        name: 'Alfonso Pérez'
     },
     {
-      id: 2,
-      name: 'Raúl González'
+        id: 2,
+        name: 'Raúl González'
+    },
+    {
+        id: 3,
+        name: 'Jose María Gutiérrez'
     }
+
 ];
 
 interface PersonaState {
@@ -33,7 +38,7 @@ interface PagoFormProps {
 
 const PagoForm = ({onNewPago}: PagoFormProps) => {
     const [personas, setPersonas] = useState<PersonaState['personas']>([]);
-    const [personaId, setPersonaId] = useState<PersonaState['personaId']>(3);
+    const [personaId, setPersonaId] = useState<PersonaState['personaId']>(4);
     const [inputValues, setInputValues] = useState<PagoFormState['inputValues']>({
         id: 0,
         personaId: 0,
@@ -47,10 +52,14 @@ const PagoForm = ({onNewPago}: PagoFormProps) => {
         setPersonas(INITIAL_STATE_PERSONAS);
     }, [])
 
+    useEffect(() => {
+        localStorage.setItem('personas', JSON.stringify(personas));
+    }, [personas]);
+
     const handleNewPersona = (newPersona: Persona): void => {
-    newPersona.id = personaId;
-    setPersonaId(personaId => personaId + 1)
-    setPersonas(personas => [...personas, newPersona])
+        newPersona.id = personaId;
+        setPersonaId(personaId => personaId + 1)
+        setPersonas(personas => [...personas, newPersona])
     }
  
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -59,6 +68,7 @@ const PagoForm = ({onNewPago}: PagoFormProps) => {
             alert("Los campos persona, fecha e importe son obligatorios");
         } else {
             onNewPago(inputValues);
+            alert("Los datos se han guardado correctamente");
         }         
     };
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes , Route, Link } from 'react-router-dom';
 import './App.css';
+import BalanceList from './components/Balance/Balance';
 import PagoForm from './components/PagoForm/PagoForm';
 import Panel from './components/Panel/Panel';
 import { Pago } from './types';
@@ -49,6 +50,10 @@ function App() {
     setPagos(INITIAL_STATE);
   }, [])
 
+  useEffect(() => {
+    localStorage.setItem('pagos', JSON.stringify(pagos));
+  }, [pagos]);
+
   const handleNewPago = (newPago: Pago): void => {
     newPago.id = pagoId;
     setPagoId(pagoId => pagoId + 1)    
@@ -66,10 +71,14 @@ function App() {
               <li>
                 <Link to="/pago">Añadir un pago</Link>
               </li>
+              <li>
+                <Link to="/balance">Ver balance</Link>
+              </li>
             </ul>
             <Routes>
               <Route path="/" element={<Panel pagos={pagos}/>} />
-              <Route path="/pago" element={<PagoForm onNewPago={handleNewPago}/>} />              
+              <Route path="/pago" element={<PagoForm onNewPago={handleNewPago}/>} />    
+              <Route path="/balance" element={<BalanceList />} />                
             </Routes>        
         </header>
       </div>

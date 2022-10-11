@@ -1,0 +1,89 @@
+:root {
+    --table-border: #d9d9d9;
+    --table-header-border: #c8117f;
+    --table-header-background: #c8117f;
+  }
+  
+  div {
+    box-sizing: border-box;
+  }
+  
+  .balance-container {
+    display: block;
+    margin: 2em auto;
+    width: 90%;
+    max-width: 900px;
+  }
+  
+  .balance-container .flex-table {
+    display: flex;
+    flex-flow: row wrap;
+    border-left: solid 1px var(--table-border);
+    transition: 0.5s;
+  }
+  
+  .balance-container .flex-table:first-of-type {
+    border-top: solid 1px var(--table-header-border);
+    border-left: solid 1px var(--table-header-border);
+    background-color: var(--table-header-background);
+  }
+  
+  .balance-container .flex-table:first-of-type .flex-row {
+    background: var(--table-header);
+    color: white;
+    border-color: var(--table-header-border);
+    background-color: var(--table-header-background);
+  }
+  
+  .balance-container .flex-row {
+    width: calc(100% / 2);
+    text-align: center;
+    padding: 0.5em 0.5em;
+    border-right: solid 1px var(--table-border);
+    border-bottom: solid 1px var(--table-border);
+  }
+  
+  .balance-container .flex-cell {
+    width: calc(100% / 2);
+    text-align: center;
+    padding: 0.5em 0.5em;
+    border-right: solid 1px var(--table-border);
+  }
+  
+  @media all and (max-width: 767px) {
+    .balance-container .flex-row {
+      width: calc(100% / 2); 
+    }
+    .balance-container .flex-row.first {
+      width: 100%;
+    }
+  }
+  
+  @media all and (max-width: 430px) {
+    
+    .balance-container .flex-table .flex-row {
+      border-bottom: 0;
+    }
+  
+    .balance-container .flex-table .flex-row:last-of-type {
+      border-bottom: solid 1px var(--table-border);
+    }
+    
+    .balance-container .header .flex-row {
+      border-bottom: solid 1px;
+    }
+    
+    .balance-container .flex-row {
+      width: 100%;
+    }
+  
+    .balance-container .flex-row:first {
+      width: 100%;
+      border-bottom: solid 1px var(--table-border);
+    }
+  
+    .balance-container .flex-cell {
+      width: 100%; 
+    }
+  }
+  
