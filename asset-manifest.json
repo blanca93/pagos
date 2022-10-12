@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/pagos/static/css/main.eba284cd.css",
+    "main.js": "/pagos/static/js/main.18ceaf47.js",
+    "static/js/787.3f530bf9.chunk.js": "/pagos/static/js/787.3f530bf9.chunk.js",
+    "index.html": "/pagos/index.html",
+    "main.eba284cd.css.map": "/pagos/static/css/main.eba284cd.css.map",
+    "main.18ceaf47.js.map": "/pagos/static/js/main.18ceaf47.js.map",
+    "787.3f530bf9.chunk.js.map": "/pagos/static/js/787.3f530bf9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.eba284cd.css",
+    "static/js/main.18ceaf47.js"
+  ]
+}
