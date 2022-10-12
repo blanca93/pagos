@@ -16,7 +16,7 @@ export default function DeudaList (props: Props) {
     const calculateDeudas = (balances: Array<Balance>) => {
         let copiaBalances = [...balances];
         let balancesSinCeros: Array<Balance>;
-        let balancePareja: Balance;
+        let balancePareja: Balance | null;
         
         while(copiaBalances.length > 1) {
             // Quitamos los balances cuyo importe sea cero
@@ -26,8 +26,8 @@ export default function DeudaList (props: Props) {
                 // Buscamos el balance con mayor valor absoluto de importe
                 const balanceDeImporteMaximo: Balance = balancesSinCeros.reduce((prev, current) => (Math.abs(prev.importe) >= Math.abs(current.importe)) ? prev : current);
                 // Buscamos el siguiente importe de signo contrario con mayor valor absoluto
-                balancePareja = balancesSinCeros.filter(x => Math.sign(x.importe) !== Math.sign(balanceDeImporteMaximo.importe))
-                    .reduce((prev, current) => (Math.abs(prev.importe) >= Math.abs(current.importe)) ? prev : current);
+                const posiblesParejas: Array<Balance> = balancesSinCeros.filter(x => Math.sign(x.importe) !== Math.sign(balanceDeImporteMaximo.importe));
+                balancePareja = posiblesParejas.length > 0 ? posiblesParejas.reduce((prev, current) => (Math.abs(prev.importe) >= Math.abs(current.importe)) ? prev : current) : null;
     
                 let newDeuda: Deuda;
 
@@ -72,9 +72,7 @@ export default function DeudaList (props: Props) {
                     return (
                         <ul>
                             <li key={i}>
-                                Persona que da: {deuda.personaQueDa}<br/>
-                                Persona que recibe: {deuda.personaQueRecibe}<br/>
-                                Importe: {deuda.importe}
+                                {deuda.personaQueDa} le debe a {deuda.personaQueRecibe} {deuda.importe} euros
                             </li>
                         </ul>
                     )

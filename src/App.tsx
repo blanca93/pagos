@@ -55,6 +55,7 @@ function App() {
   }, [pagos]);
 
   const handleNewPago = (newPago: Pago): void => {
+    newPago.importe = Number(newPago.importe);
     newPago.id = pagoId;
     setPagoId(pagoId => pagoId + 1)    
     setPagos(pagos => [...pagos, newPago])
@@ -64,14 +65,14 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-body">
-            <ul>
+            <ul data-cy="links">
               <li>
                 <Link to="/">Tabla de pagos</Link>
               </li>
-              <li>
+              <li data-cy="pagolink">
                 <Link to="/pago">Añadir un pago</Link>
               </li>
-              <li>
+              <li data-cy="balancelink">
                 <Link to="/balance">Ver balance</Link>
               </li>
             </ul>

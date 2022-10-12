@@ -86,7 +86,7 @@ const PagoForm = ({onNewPago}: PagoFormProps) => {
                 <ul className="flex-outer">
                     <li>
                         <label htmlFor="personaName">Persona:</label>
-                        <select onChange={handleChange} value={inputValues.personaName} name='personaName'>
+                        <select data-cy="newpagopersona" onChange={handleChange} value={inputValues.personaName} name='personaName'>
                         {
                             personas.map(el => <option value={el.name} key={el.id}> {el.name} </option>)
                         }
@@ -95,12 +95,12 @@ const PagoForm = ({onNewPago}: PagoFormProps) => {
 
                     <li>
                         <label htmlFor="importe">Importe:</label>
-                        <input onChange={handleChange} value={inputValues.importe} type='number' name='importe' placeholder='100.52'/>
+                        <input data-cy="newpagoimporte" onChange={handleChange} value={inputValues.importe} type='number' name='importe' placeholder='100.52'/>
                     </li>
 
                     <li>
                         <label htmlFor="fecha">Fecha y hora:</label>
-                        <input onChange={handleChange} value={inputValues.fecha} type="datetime-local" name='fecha'/>
+                        <input data-cy="newpagofecha" onChange={handleChange} value={inputValues.fecha} type="datetime-local" name='fecha'/>
                     </li>
 
                     <li>
@@ -108,7 +108,7 @@ const PagoForm = ({onNewPago}: PagoFormProps) => {
                         <textarea onChange={handleChange} value={inputValues.descripcion} name='descripcion' placeholder='Entradas'/>
                     </li>
                     <li>
-                        <button type='submit'>Guardar pago</button>
+                        <button data-cy="newpagobutton" type='submit'>Guardar pago</button>
                     </li>                    
                 </ul>
             </form>

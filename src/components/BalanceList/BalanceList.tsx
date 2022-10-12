@@ -53,7 +53,7 @@ export default function BalanceList () {
                 return (
                 <div key={index} className="flex-table row" role="rowgroup">
                     <div className="flex-row" role="cell">{balance.personaName}</div>
-                    <div className="flex-row" role="cell">{balance.importe}</div>
+                    <div className="flex-row" role="cell">{balance.importe} euros</div>
                 </div>
                 )
             }) 
