@@ -67,17 +67,18 @@ export default function DeudaList (props: Props) {
     return (
         <div>
             <h2>Deudas</h2>
+            <ul>
             {
-                deudas?.map((deuda, i) => {
+                deudas?.map((deuda, index) => {
                     return (
-                        <ul>
-                            <li key={i}>
-                                {deuda.personaQueDa} le debe a {deuda.personaQueRecibe} {deuda.importe} euros
-                            </li>
-                        </ul>
+                        <li key={index}>
+                            {deuda.personaQueDa} le debe a {deuda.personaQueRecibe} {deuda.importe} euros
+                        </li>
+                        
                     )
                 })
-            }             
+            } 
+            </ul>            
         </div>
     );
 }
